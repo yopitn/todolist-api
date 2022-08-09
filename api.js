@@ -12,7 +12,6 @@ if (!fs.existsSync('./api.json')) {
 }
 
 const server = http.createServer((req, res) => {
-
   res.setHeader('Content-Type', 'application/json')
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
@@ -26,7 +25,6 @@ const server = http.createServer((req, res) => {
   } else if (req.method === "DELETE") {
     todo.deleteTodo(req, res)
   }
-
 })
 
 server.listen(port, host, () => {
