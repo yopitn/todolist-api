@@ -5,17 +5,15 @@ class Todo {
     const todoBuffer = fs.readFileSync('./api.json')
     const todos = JSON.parse(todoBuffer)
 
-    return JSON.stringify({
-      code: 200,
-      status: "OK",
-      data: todos.map((value) => {
+    return JSON.stringify(
+      todos.map((value) => {
         return {
           id: value.id,
-          todo: value.todo,
-          status: value.status
+          title: value.title,
+          completed: value.completed
         }
       })
-    })
+    )
   }
 
   getTodo(req, res) {
@@ -27,7 +25,7 @@ class Todo {
     req.on('data', data => {
       const body = JSON.parse(data.toString())
 
-      const todo = {id: Date.now(), todo: body.todo, status: body.status}
+      const todo = {id: Date.now(), title: body.title, completed: body.completed}
 
       const todoBuffer = fs.readFileSync('./api.json')
       const todos = JSON.parse(todoBuffer)
@@ -50,12 +48,12 @@ class Todo {
 
       todos.forEach(element => {
         if (element.id === body.id) {
-          if (body.todo !== undefined) {
-            element.todo = body.todo
+          if (body.title !== undefined) {
+            element.title = body.title
           }
 
-          if (body.status !== undefined) {
-            element.status = body.status
+          if (body.completed !== undefined) {
+            element.completed = body.completed
           }
         }
       });
